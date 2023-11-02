@@ -1,5 +1,86 @@
 <h1>{{title}}</h1>
+<div class="container mt-4">
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addInvoiceModal">
+    Add Invoice
+  </button>
 
-<ul>
-    <li *ngFor='let invoice of invoices'>{{invoice.id}} - {{invoice.userName}}</li>
-</ul>
+  <!-- Table Header -->
+  <div class="row font-weight-bold text-center bg-light py-2">
+    <div class="col">ID</div>
+    <div class="col">Client</div>
+    <div class="col">Created</div>
+    <div class="col">Due</div>
+    <div class="col">Sum</div>
+    <div class="col">Status</div>
+  </div>
+
+  <!-- Table Rows -->
+  <ng-container *ngFor="let invoice of invoices">
+    <div class="row text-center bg-white my-2 py-2">
+      <div class="col">{{ invoice.Id }}</div>
+      <div class="col">{{ invoice.Client }}</div>
+      <div class="col">{{ invoice.Created | date: 'shortDate' }}</div>
+      <div class="col">{{ invoice.Due | date: 'shortDate' }}</div>
+      <div class="col font-weight-bold">{{ invoice.Sum | currency }}</div>
+      <div class="col">
+        <span class="px-2 py-1 rounded" [ngClass]="{
+            'bg-success text-white': invoice.Status === 1,
+            'bg-warning text-dark': invoice.Status === 2,
+            'bg-danger text-white': invoice.Status === 3
+          }">{{ invoice.Status | statusDisplay }}
+        </span>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addInvoiceModal">
+  Add Invoice
+</button>
+
+<!-- Add Invoice Modal -->
+<div class="modal fade" id="addInvoiceModal" tabindex="-1" role="dialog" aria-labelledby="addInvoiceModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addInvoiceModalLabel">Add New Invoice</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #invoiceForm="ngForm" (ngSubmit)="onSubmit(invoiceForm.value)">
+          <div class="form-group">
+            <label for="clientName">Client Name</label>
+            <input type="text" class="form-control" id="clientName" required [(ngModel)]="newInvoice.Client" name="client">
+          </div>
+          <div class="form-group">
+            <label for="invoiceCreated">Invoice Created</label>
+            <input type="date" class="form-control" id="invoiceCreated" required [(ngModel)]="newInvoice.Created" name="created">
+          </div>
+          <div class="form-group">
+            <label for="invoiceDue">Invoice Due</label>
+            <input type="date" class="form-control" id="invoiceDue" required [(ngModel)]="newInvoice.Due" name="due">
+          </div>
+          <div class="form-group">
+            <label for="invoiceSum">Sum</label>
+            <input type="number" class="form-control" id="invoiceSum" required [(ngModel)]="newInvoice.Sum" name="sum">
+          </div>
+          <div class="form-group">
+            <label for="invoiceStatus">Status</label>
+            <select class="form-control" id="invoiceStatus" required [(ngModel)]="newInvoice.Status" name="status">
+              <option value="1">Paid</option>
+              <option value="2">Unpaid</option>
+              <option value="3">Pending</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add Invoice</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

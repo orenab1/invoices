@@ -5,6 +5,6 @@ public class Invoice
     public DateTime Created { get; set; }
     public DateTime Due { get; set; }
     public float Sum { get; set; }
-    public InvoiceStatuses InvoiceStatus { get; set; }
+    public InvoiceStatuses Status { get; set; }
 
 }
