@@ -15,7 +15,7 @@ public class InvoicesController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Invoice>>> GetInvoices()
     {
-        var invoices= await _context.Invoices.ToListAsync();
+        var invoices = await _context.Invoices.ToListAsync();
         return Ok(invoices);
     }
 
@@ -31,13 +31,15 @@ public class InvoicesController : ControllerBase
         // get invoice by id
         // update fields
         // save
-       return NoContent();
+        return NoContent();
     }
 
+    // TO DO: use DTO
     [HttpPost]
     public async Task<ActionResult> CreateInvoice(Invoice invoice)
     {
-       var result= await _context.Invoices.AddAsync(invoice);
-       return NoContent();
+        // TO DO: use repository
+        var result = await _context.Invoices.AddAsync(invoice);
+        return NoContent();
     }
 }

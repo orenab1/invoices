@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
+// TO DO: move to new component
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,6 +17,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.getInvoices();
+    // TO DO: create model in client
     this.newInvoice = {
       Client: '',
       Created: '',
@@ -25,6 +28,7 @@ export class AppComponent {
   }
 
   getInvoices() {
+    // TO DO: move url to config file. Move api calls to a dedicated file.
     this.http.get('https://localhost:5280/api/invoices').subscribe(
       (response) => {
         this.invoices = response;
@@ -86,7 +90,16 @@ export class AppComponent {
     };
   }
 
+  openEditModal(invoice: any) {
+    this.newInvoice = { ...invoice }; // Clone the selected invoice data
+    this.openModal();
+  }
+
+  openModal() {
+    // TO DO: open the modal with newInvoice fields populated
+  }
+
   closeModal() {
-    // TO DO: close the modal 
+    // TO DO: close the modal
   }
 }

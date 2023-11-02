@@ -31,15 +31,12 @@
           }">{{ invoice.Status | statusDisplay }}
         </span>
       </div>
-      <div class="col">Edit</div>
+      <div class="col">
+        <button class="btn btn-secondary" (click)="openEditModal(invoice)">Edit</button>
+      </div>
     </div>
   </ng-container>
 </div>
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addInvoiceModal">
-  Add Invoice
-</button>
 
 <!-- Add Invoice Modal -->
 <div class="modal fade" id="addInvoiceModal" tabindex="-1" role="dialog" aria-labelledby="addInvoiceModalLabel" aria-hidden="true">
